@@ -1,0 +1,63 @@
+<script type="text/javascript">
+    let dados
+    fetch('https://homologacao10.dommusbeta.com.br/api-teste/parcelas.json')
+    .then(function(response){
+        return response.json()
+    })
+    .then(function(response){
+        var addRow = document.getElementById('tabela')
+        var sumValor=0,sumJuros=0,sumAmortizado=0,sumDevedor=0
+        let promisseArray = response
+        promisseArray.forEach(element => {
+            let template = 
+        '<th><h4>'+ element.valor +'</h4></th>' +
+        '<th><h4>'+ element.jurosPagos+'</h4></th>' +
+        '<th><h4>'+ element.valorAmortizacao+'</h4></th>' +
+        '<th><h4>'+ element.saldoDevedorAtual+'</h4></th>'
+        addRow.innerHTML += template
+
+        sumValor += element.valor
+        sumJuros += element.jurosPagos
+        sumAmortizado += element.valorAmortizacao
+        sumDevedor  += element.saldoDevedorAtual
+        });
+
+        addRow.innerHTML +=
+        '<th><h2> Total do valor </h2></th>' +
+        '<th><h2> Total dos juros </h2></th>' +
+        '<th><h2> Total do valor amortizado </h2></th>' +
+        '<th><h2> Total de saldos atualizados </h2></th>'
+
+        addRow.innerHTML +=
+        '<th><h4> ' + sumValor + ' </h4></th>' +
+        '<th><h4> '+ sumJuros +' </h4></th>' +
+        '<th><h4> ' + sumAmortizado +' </h4></th>' +
+        '<th><h4> '+ sumDevedor +' </h4></th>'
+    })
+</script>
+<style type="text/css">
+    th{border: 1px solid;}
+</style>
+
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+    <head>
+    <meta charset="utf-8">
+    <title>Teste Estágio Dommus 2022</title>
+    </head>
+    <body>
+    <table id="tabelaPrice">
+        <thead id="tabela">
+        <th><h2>Valor</h2></th>
+        <th><h2>Juros</h2></th>
+        <th><h2>Amortização</h2></th>
+        <th><h2>Saldo atualizado</h2></th>
+        </thead>
+        <tbody>
+
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
+    </body>
+</html>
